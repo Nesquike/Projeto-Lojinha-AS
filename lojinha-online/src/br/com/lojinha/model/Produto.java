@@ -1,6 +1,7 @@
 package br.com.lojinha.model;
 
 public class Produto extends BaseEntity {
+    private String nome;
     private Double Preco_Venda;
     private Long Estoque_Qtd;
 
@@ -16,8 +17,9 @@ public class Produto extends BaseEntity {
      * Construtor completo para produto não registrado.
      * O id será gerado automaticamente pelo método gerarIdUnico.
      */
-    public Produto(Double Preco_Venda, Long Estoque_Qtd) {
+    public Produto(String nome, Double Preco_Venda, Long Estoque_Qtd) {
         super();
+        setNome(nome);
         setPrecoVenda(Preco_Venda);
         setEstoqueQtd(Estoque_Qtd);
     }
@@ -25,8 +27,9 @@ public class Produto extends BaseEntity {
     /**
      * Construtor completo para produto já registrado.
      */
-    public Produto(String id, Double Preco_Venda, Long Estoque_Qtd) {
+    public Produto(String id, String nome, Double Preco_Venda, Long Estoque_Qtd) {
         super(id);
+        setNome(nome);
         setPrecoVenda(Preco_Venda);
         setEstoqueQtd(Estoque_Qtd);
     }
@@ -34,6 +37,12 @@ public class Produto extends BaseEntity {
     /**
      * Getters e Setters
      */
+    public String getNome() { return nome; }
+    public void setNome(String nome) {
+        validarNome(nome);
+        this.nome = nome;
+    }
+
     public Double getPrecoVenda() { return Preco_Venda; }
     public void setPrecoVenda(Double Preco_Venda) {
         validarPrecoVenda(Preco_Venda);
@@ -49,6 +58,12 @@ public class Produto extends BaseEntity {
     /**
      * Métodos de validação simples.
      */
+    private void validarNome(String nome) {
+        if(nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("O nome do produto não pode estar em branco.");
+        }
+    }
+
     private void validarPrecoVenda(Double Preco_Venda) {
         if(Preco_Venda == null || Preco_Venda <= 0) {
             throw new IllegalArgumentException("O Preco de venda está inválido.");
@@ -68,6 +83,7 @@ public class Produto extends BaseEntity {
     public void mostrarDados() {
         System.out.println("=== PRODUTO ===");
         System.out.println("- ID do produto:" + id);
+        System.out.println("- Nome:" + nome);
         System.out.println("- Preço de venda:" + Preco_Venda);
         System.out.println("- Quantidade no Estoque:" + Estoque_Qtd);
     }
