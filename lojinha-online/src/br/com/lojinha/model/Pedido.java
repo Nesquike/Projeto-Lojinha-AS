@@ -1,13 +1,15 @@
 package br.com.lojinha.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pedido extends BaseEntity {
     public enum StatusPedido { PENDENTE, APROVADO, CANCELADO, ENTREGUE }
     
     private LocalDate data_pedido;
-    private Cliente cliente;
     private StatusPedido Status_pedido;
+    private Cliente cliente;
 
     /** 
      * Construtor padrão utilizado para criar um pedido vazio que será populado depois.
@@ -83,6 +85,19 @@ public class Pedido extends BaseEntity {
         if(cliente == null) {
             throw new IllegalArgumentException("O cliente do pedido não foi encontrado.");
         }
+    }
+
+    /**
+     * Composição com ItemPedido.
+     */
+    private List<ItemPedido> itens = new ArrayList<>();
+
+    public void adicionarItem(ItemPedido item) {
+        itens.add(item);
+    }
+
+    public List<ItemPedido> getItens() {
+        return itens;
     }
 
     /**
