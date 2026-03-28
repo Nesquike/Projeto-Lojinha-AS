@@ -1,5 +1,46 @@
 package br.com.lojinha.service;
 
+import br.com.lojinha.model.ItemPedido;
+import br.com.lojinha.model.Produto;
+import br.com.lojinha.model.Pedido;
+import br.com.lojinha.model.Cliente;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Service responsável por gerenciar pedidos.
+ */
 public class PedidoService {
-    
+    private List<Pedido> pedidos = new ArrayList<>();
+    private ProdutoService produtoService;
+
+    /**
+     * Retorna lista completa de pedidos.
+     * @return lista de pedidos registrados.
+     */
+    public List<Pedido> listarPedidos() {
+        return pedidos;
+    }
+
+    /**
+     * Cria um novo pedido em tempo de execução
+     * @param cliente Cliente responsável pela criação do pedido;
+     * @param produto Produto a ser adicionado no pedido.
+     * @param quantidade Quantidade do produto a ser adicionado no pedido.
+     * @return o pedido criado.
+     */
+    public Pedido criarPedido(Cliente cliente, Produto produto, Long quantidade) {
+        if(!produtoService.verificarEstoque(produto)) {
+            throw new IllegalArgumentException("Produto fora de estoque.");
+        }
+
+        Pedido pedido = new Pedido(LocalDate.now(), Pedido.StatusPedido.PENDENTE, cliente);
+        ItemPedido item = new ItemPedido(quantidade, produto.getPrecoVenda(), pedido, produto);
+        
+        pedido.adicionarItem(item);
+        pedidos.add(pedido);
+        return pedido;
+    }
 }
