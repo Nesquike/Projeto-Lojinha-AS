@@ -38,6 +38,20 @@ public class PedidoService {
     }
 
     /**
+     * Busca um pedido pelo ID.
+     * @param id id do pedido a ser buscado.
+     * @return O pedido ou lança uma exceção caso nada seja encontrado.
+     */
+    public Pedido buscarPorId(String id) {
+        for(Pedido pedido : pedidos) {
+            if(pedido.getId().equals(id)) {
+                return pedido;
+            }
+        }
+        throw new IllegalArgumentException("Pedido não encontrado.");
+    }
+
+    /**
      * Cria um novo pedido em tempo de execução
      * @param cliente Cliente responsável pela criação do pedido;
      * @param produto Produto a ser adicionado no pedido.
