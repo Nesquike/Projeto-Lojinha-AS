@@ -8,9 +8,12 @@ import br.com.lojinha.model.Pedido;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Service responsável por gerenciar pagamentos.
  */
+@Service
 public class PagamentoService {
     private List<Pagamento> pagamentos = new ArrayList<>();
 

@@ -4,10 +4,13 @@ import br.com.lojinha.model.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Service responsável pela gestão dos clientes.
  * Os clientes estáticos são incializados diretamente nessa classe.
  */
+@Service
 public class ClienteService {
     private List<Cliente> clientes = new ArrayList<>();
 

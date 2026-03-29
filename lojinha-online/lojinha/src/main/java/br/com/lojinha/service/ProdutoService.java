@@ -4,10 +4,13 @@ import br.com.lojinha.model.Produto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 /**
  * Service responsável pela gestão dos produtos.
  * Os produtos estáticos são inicializados diretamente nessa classe.
  */
+@Service
 public class ProdutoService {
     private List<Produto> produtos = new ArrayList<>();
 

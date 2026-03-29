@@ -9,12 +9,25 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  * Service responsável por gerenciar pedidos.
  */
+@Service
 public class PedidoService {
     private List<Pedido> pedidos = new ArrayList<>();
-    private ProdutoService produtoService;
+    private final ProdutoService produtoService;
+
+    /**
+     * Injeta o ProdutoService para a verificação de estoque durante a criação de pedidos.
+     * @param produtoService Service de produtos a ser injetado.
+     */
+    @Autowired
+    public PedidoService(ProdutoService produtoService) {
+        this.produtoService = produtoService;
+    }
 
     /**
      * Retorna lista completa de pedidos.

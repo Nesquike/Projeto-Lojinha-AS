@@ -1,5 +1,7 @@
 package br.com.lojinha.payment;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Classe responsável pela comunicação com o sistema de pagamento externo.
  * 
@@ -8,6 +10,7 @@ package br.com.lojinha.payment;
  * do sistema. Isso evita múltiplas conexões desnecessárias com o serviço
  * externo, centralizando e controlando o ponto de comunicação.
  */
+@Component
 public class PagamentoGateway {
     //Única instância da classe.
     private static PagamentoGateway instancia;
