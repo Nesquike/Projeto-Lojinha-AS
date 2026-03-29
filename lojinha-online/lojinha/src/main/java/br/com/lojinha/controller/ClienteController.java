@@ -13,14 +13,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
-    private ClienteService clienteService;
+    private final ClienteService clienteService;
 
     /**
      * Injeta a dependência do ClienteService.
      * @param clienteService Service de clientes a ser injetado.
      */
     @Autowired
-    private ClienteController(ClienteService clienteService) {
+    public ClienteController(ClienteService clienteService) {
         this.clienteService = clienteService;
     }
 
@@ -38,7 +38,7 @@ public class ClienteController {
      * @param cpf CPF do cliente a ser buscado.
      * @return Cliente encontrado.
      */
-    @GetMapping("{/cpf}")
+    @GetMapping("/{cpf}")
     public Cliente buscarCliente(@PathVariable String cpf) {
         return clienteService.buscarCPF(cpf);
     }
