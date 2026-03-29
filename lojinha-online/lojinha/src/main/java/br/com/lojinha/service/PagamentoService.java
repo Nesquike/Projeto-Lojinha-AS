@@ -42,6 +42,11 @@ public class PagamentoService {
 
         Pagamento.StatusPag status = aprovado ? Pagamento.StatusPag.APROVADO : Pagamento.StatusPag.RECUSADO;
         Pagamento pagamento = new Pagamento(metodo_pg, valorTotal, status, pedido);
+        pagamentos.add(pagamento);
+
+        if(!aprovado) {
+            throw new IllegalArgumentException("Pagamento recusado. Verifique os dados inseridos e tente novamente.");
+        }
 
         return pagamento;
     }
