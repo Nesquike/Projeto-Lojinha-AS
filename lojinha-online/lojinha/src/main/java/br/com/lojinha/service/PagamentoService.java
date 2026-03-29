@@ -48,6 +48,8 @@ public class PagamentoService {
             throw new IllegalArgumentException("Pagamento recusado. Verifique os dados inseridos e tente novamente.");
         }
 
+        processarCompra(pedido);
+        finalizarCompra(pedido);
         return pagamento;
     }
 
