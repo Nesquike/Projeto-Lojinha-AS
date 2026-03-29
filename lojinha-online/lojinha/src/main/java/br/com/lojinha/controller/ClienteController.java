@@ -47,6 +47,7 @@ public class ClienteController {
      * Cadastra um cliente sem registro.
      * @param cliente Objeto cliente a ser cadastrado.
      */
+    @PostMapping
     public void cadastrarCliente(@RequestBody Cliente cliente) {
         clienteService.cadastrarCliente(
             cliente.getNome(),
