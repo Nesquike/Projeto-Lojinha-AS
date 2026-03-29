@@ -53,7 +53,7 @@ public class ClienteService {
      * @param endereco Endereço do cliente.
      */
     public void cadastrarCliente(String nome, String cpf, String email, String endereco) {
-        validarCPFCPF(cpf);
+        validarCpfDuplicado(cpf);
         clientes.add(new Cliente(nome, cpf, email, endereco));
     }
 
@@ -61,7 +61,7 @@ public class ClienteService {
      * Verifica se já existe um cliente com o CPF informado.
      * @param cpf CPF a ser validado.
      */
-    public void validarCPFCPF(String cpf) {
+    private void validarCpfDuplicado(String cpf) {
         if(buscarCPF(cpf) != null) {
             throw new IllegalArgumentException("Esse cpf já foi cadastrado.");
         }
