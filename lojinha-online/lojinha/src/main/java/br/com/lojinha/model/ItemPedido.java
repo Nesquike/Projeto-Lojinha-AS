@@ -1,9 +1,13 @@
 package br.com.lojinha.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 public class ItemPedido extends BaseEntity {
+    @JsonBackReference
+    private Pedido pedido;
+
     private Long Quantidade;
     private Double Preco_venda;
-    private Pedido pedido;
     private Produto produto;
 
     /**

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PedidoService {
+    @JsonManagedReference
     private List<Pedido> pedidos = new ArrayList<>();
     private final ProdutoService produtoService;
 
