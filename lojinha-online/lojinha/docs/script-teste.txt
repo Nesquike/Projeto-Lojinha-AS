@@ -1,0 +1,95 @@
+Lojinha Online - Script de Teste
+
+1. Verificar clientes disponíveis:
+    GET http://localhost:8080/clientes
+
+2. Navegar pelos produtos disponíveis:
+    GET http://localhost:8080/produtos
+
+3. Buscar produto específico:
+    GET http://localhost:8080/produtos/Camiseta Básica
+
+4. Criar um pedido:
+    POST http://localhost:8080/pedidos
+    Params:
+        cpfCliente -> 12345678901
+        nomeProduto -> Camiseta Básica
+        quantidade -> 2
+    
+    Obs: Copie o primeiro ID gerado ao criar o pedido
+    para prosseguir com o pagamento.
+
+5. Processar pagamento:
+    POST http://localhost:8080/pagamentos
+    Params:
+        idPedido -> [ID_COPIADO_NO_PASSO_ANTERIOR]
+        metodo_pg -> PIX
+
+    Esperado: pagamento com statusPag: APROVADO e pedido 
+    com status: ENTREGUE
+
+
+Operações de Administrador:
+
+6. Cadastrar novo cliente:
+    POST http://localhost:8080/clientes
+    Body -> Raw -> JSON:
+        {
+            "nome": "Matheus Ferreira Souza",
+            "cpf": "44455566677",
+            "email": "matheus@email.com",
+            "endereco": "Rua D, 321"
+        }
+
+7. Adicionar novo produto:
+    POST http://localhost:8080/produtos
+    Body -> Raw -> JSON:
+        {
+            "nome": "Bermuda Jeans",
+            "precoVenda": 79.90,
+            "estoqueQtd": 40
+        }
+
+8. Verificar pedidos registrados:
+    GET http://localhost:8080/pedidos
+
+9. Verificar pagamentos registrados:
+    GET http://localhost:8080/pagamentos
+
+
+Testes de Erro:
+
+10. Produto fora de estoque:
+    POST http://localhost:8080/produtos
+    Body -> Raw -> JSON:
+        {
+            "nome": "Produto Esgotado",
+            "precoVenda": 99.90,
+            "estoqueQtd": 0
+        }
+
+    POST http://localhost:8080/pedidos
+    Params:
+        cpfCliente -> 12345678901
+        nomeProduto -> Produto Esgotado
+        quantidade -> 1
+
+    Esperado: 400 Bad Request - "Produto fora de estoque."
+
+11. Produto inexistente:
+    POST http://localhost:8080/pedidos
+    Params:
+        cpfCliente -> 12345678901
+        nomeProduto -> Produto Inexistente
+        quantidade -> 1
+    
+    Esperado: 400 Bad Request - "Produto não encontrado."
+
+12. Cliente inexistente:
+    POST http://localhost:8080/pedidos
+    Params:
+        cpfCliente -> 00000000000
+        nomeProduto -> Camiseta Básica
+        quantidade -> 1
+
+    Esperado: 400 Bad Request - "O cliente do pedido não foi encontrado."
